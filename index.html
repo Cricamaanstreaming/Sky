@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cric Hype</title>
+  <link rel="stylesheet" href="https://cxh.pages.dev/style.css">
+</head>
+<body>
+<style>
+  #player {
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+  }
+</style>
+
+<div id="player"></div>
+<script src='https://content.jwplatform.com/libraries/KB5zFt7A.js'></script>
+<script>
+  const playerInstance = jwplayer("player").setup({
+    controls: true,
+    displaytitle: true,
+    autoplay: true,
+    displaydescription: true,
+    abouttext: "Video Player By CricHype",
+    aboutlink: "https://telegram.me/CricHype",
+    skin: {
+      name: "netflix"
+    },
+    logo: {
+      file: "https://cxh.pages.dev/CXH.png",
+      link: "https://telegram.me/CricHype"
+    },
+    captions: {
+      color: "#FFF",
+      fontSize: 14,
+      backgroundOpacity: 0,
+      edgeStyle: "raised"
+    },
+    playlist: [
+      {
+        image: "",
+        sources: [
+          {
+            file: "https://vip.patelkaran2738.workers.dev/linear007-gb-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_720_120/Live/channel(skysportscricket)/manifest_720-120.mpd",
+            type: "dash",
+            label: "1080p",
+            default: true,
+            drm: { "clearkey": { "keyId":"00053ac1e9b1231eed3eb4e3540b3ae1","key":"0f03d8541826af3d9acbac975d751165" } }
+          }
+        ]
+      }
+    ],
+    advertising: {
+      client: "vast",
+      schedule: [
+        {
+          offset: "pre",
+          tag: ""
+        }
+      ]
+    }
+  });
+
+  playerInstance.on("ready", function () {
+    playerInstance.addButton(iconPath, tooltipText, buttonClickAction, buttonId);
+
+    function buttonClickAction() {
+      const playlistItem = playerInstance.getPlaylistItem();
+      const anchor = document.createElement("a");
+      const fileUrl = playlistItem.file;
+      anchor.setAttribute("href", fileUrl);
+      const downloadName = playlistItem.file.split("/").pop();
+      anchor.setAttribute("download", downloadName);
+      anchor.style.display = "none";
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+    }
+
+    const playerContainer = playerInstance.getContainer();
+    const buttonContainer = playerContainer.querySelector(".jw-button-container");
+    const spacer = buttonContainer.querySelector(".jw-spacer");
+    const timeSlider = playerContainer.querySelector(".jw-slider-time");
+    buttonContainer.replaceChild(timeSlider, spacer);
+
+    playerInstance.on("adBlock", () => {
+      const modal = document.querySelector("div.modal");
+      modal.style.display = "flex";
+
+      document.getElementById("close").addEventListener("click", () => location.reload());
+    });
+
+    const rewindContainer = playerContainer.querySelector(".jw-display-icon-rewind");
+    const forwardContainer = rewindContainer.cloneNode(true);
+    const forwardDisplayButton = forwardContainer.querySelector(".jw-icon-rewind");
+    forwardDisplayButton.style.transform = "scaleX(-1)";
+    forwardDisplayButton.ariaLabel = "Forward 10 Seconds";
+    const nextContainer = playerContainer.querySelector(".jw-display-icon-next");
+    nextContainer.parentNode.insertBefore(forwardContainer, nextContainer);
+
+    playerContainer.querySelector(".jw-display-icon-next").style.display = "none";
+    const rewindControlBarButton = buttonContainer.querySelector(".jw-icon-rewind");
+    const forwardControlBarButton = rewindControlBarButton.cloneNode(true);
+    forwardControlBarButton.style.transform = "scaleX(-1)";
+    forwardControlBarButton.ariaLabel = "Forward 10 Seconds";
+    rewindControlBarButton.parentNode.insertBefore(forwardControlBarButton, rewindControlBarButton.nextElementSibling);
+
+    [forwardDisplayButton, forwardControlBarButton].forEach((button) => {
+      button.onclick = () => {
+        playerInstance.seek(playerInstance.getPosition() + 10);
+      };
+    });
+  });
+
+var a = confirm("Join For More Links!!");
+  if(a==true){
+    window.location.href = "https://telegram.me/CricHype";
+  }
+  function welcome(){
+    window.open("https://telegram.me/CricHype");
+  }
+</script>
+<script disable-devtool-auto src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "89ec3c1c820d4609b4a3643417d2cb06"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>
